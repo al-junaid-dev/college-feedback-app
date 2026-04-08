@@ -39,7 +39,7 @@ export default function LoginPage() {
         
         <div className="mb-8 text-center">
           <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600 text-xl font-bold text-white shadow-lg">
-            E
+            FS
           </div>
           <h2 className="text-2xl font-extrabold text-slate-800 tracking-tight">Welcome Back</h2>
           <p className="text-sm text-slate-500 mt-1">Please sign in to your account</p>
