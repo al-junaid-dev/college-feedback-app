@@ -10,7 +10,7 @@ export default function Home() {
         <div className="flex items-center space-x-2">
           {/* A simple icon to make the logo pop */}
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white font-bold">
-            E
+            FS
           </div>
           <span className="text-xl font-extrabold text-slate-800 tracking-tight">Feedback System</span>
         </div>
