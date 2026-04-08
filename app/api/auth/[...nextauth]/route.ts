@@ -1,9 +1,9 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -25,20 +25,20 @@ export const authOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.role = (user as any).role;
-        token.id = user.id; // Added ID so we can attach feedback to the right student
+        token.id = user.id; 
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
         (session.user as any).role = token.role;
-        (session.user as any).id = token.id; // Passing ID to session
+        (session.user as any).id = token.id; 
       }
       return session;
     }
   },
   pages: { signIn: "/login" },
-  session: { strategy: "jwt" as const },
+  session: { strategy: "jwt" },
 };
 
 const handler = NextAuth(authOptions);
