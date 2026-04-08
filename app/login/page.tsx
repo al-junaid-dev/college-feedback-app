@@ -14,7 +14,6 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
 
-    // Call NextAuth's signIn function
     const res = await signIn("credentials", {
       hallTicket,
       password,
@@ -24,10 +23,7 @@ export default function LoginPage() {
     if (res?.error) {
       setError("Invalid Hall Ticket or Password");
     } else {
-      // Fetch the newly created session
       const session = await getSession();
-      
-      // Check the role and route accordingly!
       if ((session?.user as any)?.role === "ADMIN") {
         router.push("/admin");
       } else {
@@ -37,36 +33,50 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
-        <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">College Login</h2>
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-4">
+      {/* Glassmorphism Card */}
+      <div className="w-full max-w-md rounded-2xl bg-white/80 p-8 shadow-2xl backdrop-blur-xl border border-white/50 transition-all">
         
-        {error && <p className="mb-4 text-center text-sm text-red-500">{error}</p>}
+        <div className="mb-8 text-center">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600 text-xl font-bold text-white shadow-lg">
+            E
+          </div>
+          <h2 className="text-2xl font-extrabold text-slate-800 tracking-tight">Welcome Back</h2>
+          <p className="text-sm text-slate-500 mt-1">Please sign in to your account</p>
+        </div>
+        
+        {error && (
+          <div className="mb-6 rounded-lg bg-red-50 p-3 text-center text-sm font-medium text-red-600 border border-red-100">
+            {error}
+          </div>
+        )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">Hall Ticket Number (or Admin ID)</label>
+            <label className="mb-1.5 block text-sm font-semibold text-slate-700">Hall Ticket Number (or Admin ID)</label>
             <input
               type="text"
               required
-              className="w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full rounded-xl border border-slate-200 bg-white/50 p-3 text-slate-800 transition-all focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-blue-500/10"
               value={hallTicket}
               onChange={(e) => setHallTicket(e.target.value)}
+              placeholder="e.g. HT1001"
             />
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">Password</label>
+            <label className="mb-1.5 block text-sm font-semibold text-slate-700">Password</label>
             <input
               type="password"
               required
-              className="w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full rounded-xl border border-slate-200 bg-white/50 p-3 text-slate-800 transition-all focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-blue-500/10"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
             />
           </div>
           <button
             type="submit"
-            className="w-full rounded-md bg-blue-600 py-2 text-white transition hover:bg-blue-700"
+            className="w-full rounded-xl bg-blue-600 py-3.5 text-sm font-bold text-white shadow-md transition-all hover:bg-blue-700 hover:shadow-lg hover:-translate-y-0.5"
           >
             Sign In
           </button>
