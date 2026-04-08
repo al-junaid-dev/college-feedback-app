@@ -12,12 +12,37 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        if (!credentials?.hallTicket || !credentials?.password) return null;
-        const user = await prisma.user.findUnique({ where: { hallTicket: credentials.hallTicket } });
-        if (!user) return null;
-        const isPasswordValid = await bcrypt.compare(credentials.password, user.passwordHash);
-        if (!isPasswordValid) return null;
-        return { id: user.id, role: user.role, hallTicket: user.hallTicket };
+        console.log("1. Login attempt for:", credentials?.hallTicket);
+        
+        if (!credentials?.hallTicket || !credentials?.password) {
+          console.log("Failed: Missing credentials");
+          return null;
+        }
+
+        try {
+          console.log("2. Reaching out to the database...");
+          const user = await prisma.user.findUnique({ 
+            where: { hallTicket: credentials.hallTicket } 
+          });
+          
+          console.log("3. Database responded. User found in DB:", user ? "YES" : "NO");
+
+          if (!user) return null;
+
+          console.log("4. Checking password hash...");
+          const isPasswordValid = await bcrypt.compare(credentials.password, user.passwordHash);
+          
+          console.log("5. Password match result:", isPasswordValid);
+
+          if (!isPasswordValid) return null;
+
+          console.log("6. Login SUCCESS! Returning user data.");
+          return { id: user.id, role: user.role, hallTicket: user.hallTicket };
+
+        } catch (error) {
+          console.error("CRITICAL DATABASE ERROR DURING LOGIN:", error);
+          return null;
+        }
       }
     })
   ],
