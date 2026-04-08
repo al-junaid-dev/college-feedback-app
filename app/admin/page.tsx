@@ -42,7 +42,7 @@ export default async function AdminDashboard() {
        <header className="mb-8 flex items-center justify-between">
   <div>
     <h1 className="text-3xl font-bold text-gray-800">Admin Dashboard</h1>
-    <p className="text-gray-600">Logged in as: {(session.user as any).hallTicket}</p>
+    <p className="text-gray-600">Logged in as: ADMIN-HOD</p>
   </div>
   <LogoutButton />
 </header>
