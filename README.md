@@ -1,4 +1,4 @@
-# 🎓 College Feedback System
+# 🎓 College Feedback System by me
 
 A modern **web-based Feedback System** built using **React.js, Tailwind CSS, and JavaScript**. This application allows students to securely submit feedback for subjects, while administrators can analyze and review the collected data through a dashboard.
 
